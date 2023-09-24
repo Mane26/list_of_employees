@@ -1,0 +1,16 @@
+{% for department in departments %}
+    <h3>{{ department.name }}</h3>
+    {% if department.children.exists %}
+        <ul>
+        {% for child in department.children.all %}
+            <li>{{ child.name }}</li>
+            <!-- Показать список сотрудников в подразделении -->
+            <a href="{% url 'department_detail' department_id=child.id %}">Просмотреть</a>
+            <!-- Добавить сотрудника в подразделение -->
+            <a href="{% url 'employee_create' department_id=child.id %}">Добавить сотрудника</a>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Данное подразделение не имеет дочерних подразделений</p>
+        {% endif %}
+    {% endfor %}

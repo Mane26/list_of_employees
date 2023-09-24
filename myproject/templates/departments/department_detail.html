@@ -1,0 +1,13 @@
+<h3>{{ department.name }}</h3>
+{% for employee in department.employee_set.all %}
+    <p>{{ employee.name }}, {{ employee.position }}, {{ employee.hire_date }}, {{ employee.salary }}</p>
+    <!-- Изменение сотрудника -->
+    <a href="{% url 'employee_update' employee_id=employee.id %}">Изменить</a>
+    <!-- Удаление сотрудника -->
+    <form method="post" action="{% url 'employee_delete' employee_id=employee.id %}">
+        {% csrf_token %}
+        <button type="submit">Удалить</button>
+    </form>
+{% empty %}
+    <p>В данном подразделении нет сотрудников</p>
+{% endfor %}
